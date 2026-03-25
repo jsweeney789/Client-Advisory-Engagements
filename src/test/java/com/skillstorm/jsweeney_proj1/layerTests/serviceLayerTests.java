@@ -28,6 +28,8 @@ public class serviceLayerTests {
      * Update
      * Delete
      * TODO: might need to BeforeAll initialize some kind of repo layer for the service to interact with in testing, unsure
+     * 
+     * for future reference, @Disabled might be useful for essentially archiving tests
      */
     @Test
     @DisplayName("Test Client Service Create")
