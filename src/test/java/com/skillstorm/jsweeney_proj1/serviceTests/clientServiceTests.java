@@ -37,13 +37,16 @@ public class ClientServiceTests {
     @InjectMocks
     ClientService clientService;
 
+    
 
     @Test
     @DisplayName("Test Client Service Create")
     public void serviceCreateClientTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
                                                  "1234567890", "Standard", 750_000.00);
+
         when(repo.save(exampleClient)).thenReturn(exampleClient);
+
         Client resultClient = clientService.saveClient(exampleClient);
         assertNotNull(resultClient);
         assertEquals(exampleClient.getClientId(), resultClient.getClientId());
@@ -89,7 +92,7 @@ public class ClientServiceTests {
         Client preUpdate = clientService.saveClient(exampleClient);
         exampleClient.setEmail("differentEmail@gmail.com");
 
-         // tell Mockito to have the repo save over the first example, and also read it back when we getId it
+        // tell Mockito to have the repo save over the first example, and also read it back when we getId it
         when(repo.save(exampleClient)).thenReturn(exampleClient);
         when(repo.findById(exampleClient.getClientId())).thenReturn(Optional.of(exampleClient));
 

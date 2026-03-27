@@ -114,5 +114,66 @@ public class Client {
         this.clientNetWorth = clientNetWorth;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (clientId ^ (clientId >>> 32));
+        result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+        result = prime * result + ((email == null) ? 0 : email.hashCode());
+        result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+        result = prime * result + ((tier == null) ? 0 : tier.hashCode());
+        result = prime * result + ((clientNetWorth == null) ? 0 : clientNetWorth.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Client other = (Client) obj;
+        if (clientId != other.clientId)
+            return false;
+        if (firstName == null) {
+            if (other.firstName != null)
+                return false;
+        } else if (!firstName.equals(other.firstName))
+            return false;
+        if (lastName == null) {
+            if (other.lastName != null)
+                return false;
+        } else if (!lastName.equals(other.lastName))
+            return false;
+        if (email == null) {
+            if (other.email != null)
+                return false;
+        } else if (!email.equals(other.email))
+            return false;
+        if (phone == null) {
+            if (other.phone != null)
+                return false;
+        } else if (!phone.equals(other.phone))
+            return false;
+        if (tier == null) {
+            if (other.tier != null)
+                return false;
+        } else if (!tier.equals(other.tier))
+            return false;
+        if (clientNetWorth != other.clientNetWorth)
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Client [clientId=" + clientId + ", firstName=" + firstName + ", lastName=" + lastName + ", email="
+                + email + ", phone=" + phone + ", tier=" + tier + ", clientNetWorth=" + clientNetWorth + "]";
+    }
+
     
 }
