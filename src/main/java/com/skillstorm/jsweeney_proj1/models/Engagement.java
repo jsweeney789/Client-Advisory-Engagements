@@ -12,16 +12,16 @@ public class Engagement {
     public enum engagementStatus{ACTIVE, PAUSED, COMPLETED}
 
     private long engagementId;
-    private long clientId; // the id of the client associated with the engagement
-    private long advisoryServiceId; // the id of the advisory Service associated with the engagement
+    private Client client; // the id of the client associated with the engagement
+    private Advisory advisory; // the id of the advisory Service associated with the engagement
     private LocalDate startDate;
     private engagementStatus status;
 
 
-    public Engagement(long engagementId, long clientId, long advisoryServiceId, LocalDate start_date) {
+    public Engagement(long engagementId, Client client, Advisory advisory, LocalDate start_date) {
         this.engagementId = engagementId;
-        this.clientId = clientId;
-        this.advisoryServiceId = advisoryServiceId;
+        this.client = client;
+        this.advisory = advisory;
         this.startDate = LocalDate.now(); // will use backend timer for Date, though DB also sets NOW() itself as default
         this.status = engagementStatus.ACTIVE; // assuming engagements are active on creation for now
     }
@@ -35,25 +35,7 @@ public class Engagement {
         this.engagementId = engagementId;
     }
 
-
-    public long getClientId() {
-        return clientId;
-    }
-
-
-    public void setClientId(long clientId) {
-        this.clientId = clientId;
-    }
-
-
-    public long getAdvisoryId() {
-        return advisoryServiceId;
-    }
-
-
-    public void setAdvisoryId(long advisoryServiceId) {
-        this.advisoryServiceId = advisoryServiceId;
-    }
+    
 
 
     public LocalDate getStartDate() {

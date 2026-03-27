@@ -29,7 +29,7 @@ import com.skillstorm.jsweeney_proj1.services.ClientService;
 // The service layer interacts with the controller and the repository - handles "business logic"
 // this class is meant to test them as a single component
 @ExtendWith(MockitoExtension.class)
-public class userServiceTests {
+public class clientServiceTests {
     @Mock
     private ClientRepository repo;
 
@@ -37,17 +37,6 @@ public class userServiceTests {
     ClientService clientService;
 
 
-    /**
-     * Starting with client model
-     * Want to test basic CRUD behavior, so our goal is to test and then require the making of
-     * Create
-     * Read
-     * Update
-     * Delete
-     * TODO: might need to BeforeAll initialize some kind of repo layer for the service to interact with in testing, unsure
-     * 
-     * for future reference, @Disabled might be useful for essentially archiving tests
-     */
     @Test
     @DisplayName("Test Client Service Create")
     public void serviceCreateClientTest() {
@@ -139,7 +128,4 @@ public class userServiceTests {
         
         
     }
-
-    // TODO: write tests for the service layer of our advisory and engagement models
-    // note that we might have to call it advisoryServiceService, that might be the worst thing ever
 }

@@ -11,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.skillstorm.jsweeney_proj1.models.*;
 import com.skillstorm.jsweeney_proj1.models.Client.networthRange;
-import com.skillstorm.jsweeney_proj1.models.AdvisoryService.deliveryFormatOptions;
-import com.skillstorm.jsweeney_proj1.models.AdvisoryService.serviceType;
+import com.skillstorm.jsweeney_proj1.models.Advisory.deliveryFormatOptions;
+import com.skillstorm.jsweeney_proj1.models.Advisory.serviceType;
 import com.skillstorm.jsweeney_proj1.models.Engagement.engagementStatus;
 
 
@@ -40,16 +40,16 @@ public class javaModelTests {
     }
 
     @Test
-    @DisplayName("Advisory Service Object Creation Test")
-    public void advServCreationTest() {
-        AdvisoryService advServ = new AdvisoryService(2, "Business Advisory LLC", 
+    @DisplayName("Advisory Object Creation Test")
+    public void advisoryCreationTest() {
+        Advisory advisory = new Advisory(2, "Business Advisory LLC", 
         serviceType.TAX, deliveryFormatOptions.VIRTUAL, 1_000.00);
-        assertNotNull(advServ);
-        assertEquals(advServ.getAdvisoryId(), 2);
-        assertEquals(advServ.getName(), "Business Advisory LLC");
-        assertEquals(advServ.getType(), "TAX");
-        assertEquals(advServ.getDeliveryFormat(), "VIRTUAL");
-        assertEquals(advServ.getAnnualFee(), 1000.00);
+        assertNotNull(advisory);
+        assertEquals(advisory.getAdvisoryId(), 2);
+        assertEquals(advisory.getName(), "Business Advisory LLC");
+        assertEquals(advisory.getType(), "TAX");
+        assertEquals(advisory.getDeliveryFormat(), "VIRTUAL");
+        assertEquals(advisory.getAnnualFee(), 1000.00);
     }
     
     @Test

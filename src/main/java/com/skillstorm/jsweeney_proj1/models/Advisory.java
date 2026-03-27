@@ -3,22 +3,22 @@ package com.skillstorm.jsweeney_proj1.models;
 import jakarta.persistence.Entity;
 
 @Entity
-public class AdvisoryService {
+public class Advisory {
     // again, unsure for now if the enums make sense or not
     // using for now because these seem great for dropdown menus in frontend
     public enum serviceType{TAX, ESTATE, PORTFOLIO, RETIREMENT}
     public enum deliveryFormatOptions{INPERSON, VIRTUAL, HYBRID}
 
-    private long advisoryServiceId;
+    private long advisoryId;
     private String name;
     private serviceType serviceType;
     private deliveryFormatOptions deliveryFormat;
     private double annualFee;
 
     
-    public AdvisoryService(long advisoryServiceId, String name, serviceType service,
+    public Advisory(long advisoryId, String name, serviceType service,
             deliveryFormatOptions deliveryFormat, double annualFee) {
-        this.advisoryServiceId = advisoryServiceId;
+        this.advisoryId = advisoryId;
         this.name = name;
         this.serviceType = service;
         this.deliveryFormat = deliveryFormat;
@@ -27,12 +27,12 @@ public class AdvisoryService {
 
 
     public long getAdvisoryId() {
-        return advisoryServiceId;
+        return advisoryId;
     }
 
 
     public void setAdvisoryServiceId(long advisoryServiceId) {
-        this.advisoryServiceId = advisoryServiceId;
+        this.advisoryId = advisoryServiceId;
     }
 
 
@@ -46,12 +46,12 @@ public class AdvisoryService {
     }
 
 
-    public String getType() {
+    public String getServiceType() {
         return serviceType.toString();
     }
 
 
-    public void setType(serviceType serviceType) {
+    public void setServiceType(serviceType serviceType) {
         this.serviceType = serviceType;
     }
 

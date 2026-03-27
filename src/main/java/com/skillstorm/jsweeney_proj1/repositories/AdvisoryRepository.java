@@ -4,9 +4,9 @@ import org.springframework.boot.json.JsonParser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.skillstorm.jsweeney_proj1.models.AdvisoryService;
+import com.skillstorm.jsweeney_proj1.models.Advisory;
 
 @Repository
-public interface AdvisoryServiceRepository extends JpaRepository<AdvisoryService, Long> {
+public interface AdvisoryRepository extends JpaRepository<Advisory, Long> {
 
 }
