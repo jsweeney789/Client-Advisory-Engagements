@@ -22,13 +22,13 @@ import com.skillstorm.jsweeney_proj1.models.Engagement.engagementStatus;
  * these are Client - Advisory Service - Engagement
  */
 @SpringBootTest
-public class javaModelTests {
+public class JavaModelTests {
 
     @Test
     @DisplayName("Client Object Creation Test")
     public void clientCreationTest() {
         Client client = new Client(1L, "Jacob", "Sweeney", "jsweeney@skillstorm.com", 
-        "+1-123-456-7890", "Premium", 250_000.00);
+                                    "+1-123-456-7890", "Premium", 250_000.00);
         assertNotNull(client);
         assertEquals(client.getClientId(), 1);
         assertEquals(client.getFirstName(), "Jacob");
@@ -42,12 +42,11 @@ public class javaModelTests {
     @Test
     @DisplayName("Advisory Object Creation Test")
     public void advisoryCreationTest() {
-        Advisory advisory = new Advisory(2, "Business Advisory LLC", 
-        serviceType.TAX, deliveryFormatOptions.VIRTUAL, 1_000.00);
+        Advisory advisory = new Advisory(2, "Business Advisory LLC", serviceType.TAX, deliveryFormatOptions.VIRTUAL, 1_000.00);
         assertNotNull(advisory);
         assertEquals(advisory.getAdvisoryId(), 2);
         assertEquals(advisory.getName(), "Business Advisory LLC");
-        assertEquals(advisory.getType(), "TAX");
+        assertEquals(advisory.getServiceType(), "TAX");
         assertEquals(advisory.getDeliveryFormat(), "VIRTUAL");
         assertEquals(advisory.getAnnualFee(), 1000.00);
     }
@@ -56,11 +55,18 @@ public class javaModelTests {
     @DisplayName("Engagement Service Object Creation Test")
     public void engagementCreationTest() {
         LocalDate exampleDate = LocalDate.parse("2026-03-25");
-        Engagement engagement = new Engagement(1L, 1L, 2L, exampleDate);
+
+        Advisory advisory = new Advisory(2, "Business Advisory LLC", serviceType.TAX, deliveryFormatOptions.VIRTUAL, 1_000.00);
+
+        Client client = new Client(1L, "Jacob", "Sweeney", "jsweeney@skillstorm.com", 
+                                    "+1-123-456-7890", "Premium", 250_000.00);
+
+        Engagement engagement = new Engagement(1L, client, advisory, exampleDate);
+        
         assertNotNull(engagement);
         assertEquals(engagement.getEngagementId(), 1);
-        assertEquals(engagement.getClientId(), 1);
-        assertEquals(engagement.getAdvisoryId(), 2);
+        assertEquals(engagement.getClient(), client);
+        assertEquals(engagement.getAdvisory(), advisory);
         assertEquals(engagement.getStartDate(), exampleDate);
         assertEquals(engagement.getStatus(), "ACTIVE");
     }

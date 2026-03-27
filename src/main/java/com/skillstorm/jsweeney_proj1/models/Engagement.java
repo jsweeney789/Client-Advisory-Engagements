@@ -30,28 +30,37 @@ public class Engagement {
         return engagementId;
     }
 
-
     public void setEngagementId(long engagementId) {
         this.engagementId = engagementId;
     }
 
-    
+    public Client getClient() {
+        return client;
+    }
 
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public Advisory getAdvisory() {
+        return advisory;
+    }
+
+    public void setAdvisory(Advisory advisory) {
+        this.advisory = advisory;
+    }
 
     public LocalDate getStartDate() {
         return startDate;
     }
 
-
     public void setStartDate(LocalDate start_date) {
         this.startDate = start_date;
     }
 
-
     public String getStatus() {
         return status.toString();
     }
-
 
     public void setStatus(engagementStatus status) {
         this.status = status;

@@ -18,15 +18,6 @@ public class Client {
     private networthRange clientNetWorth;
 
     /**
-     * Helper function to generate a unique client id on client object creation
-     * @return a valid unique id as an integer
-     */
-    private int generateId() {
-
-        return -1;
-    }
-
-    /**
      * Helper method that allows our constructor to receive a net worth estimation and then map it to
      * the ranges we care about
      * @param netWorth the estimated net worth of the client

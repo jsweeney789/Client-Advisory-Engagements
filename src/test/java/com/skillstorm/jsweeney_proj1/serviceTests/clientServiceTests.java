@@ -10,6 +10,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -29,7 +30,7 @@ import com.skillstorm.jsweeney_proj1.services.ClientService;
 // The service layer interacts with the controller and the repository - handles "business logic"
 // this class is meant to test them as a single component
 @ExtendWith(MockitoExtension.class)
-public class clientServiceTests {
+public class ClientServiceTests {
     @Mock
     private ClientRepository repo;
 
@@ -73,8 +74,8 @@ public class clientServiceTests {
         assertEquals(exampleClient.getEstNetWorth(), resultClient.getEstNetWorth());
 
         // test a fail case
-        when(repo.findById(5L)).thenThrow(IllegalArgumentException.class);
-        assertThrows(IllegalArgumentException.class, () -> clientService.getClientById(5L));
+        when(repo.findById(5L)).thenThrow(NoSuchElementException.class);
+        assertThrows(NoSuchElementException.class, () -> clientService.getClientById(5L));
     }
 
     @Test
@@ -108,7 +109,7 @@ public class clientServiceTests {
                                                  "1234567890", "Standard", 750_000.00);
 
         // our delete method tries reading the client first to make sure it exists, so we have to simulate that, then we simulate reading it after it was deleted with an error
-        when(repo.findById(exampleClient.getClientId())).thenReturn(Optional.of(exampleClient)).thenThrow(IllegalArgumentException.class);
+        when(repo.findById(exampleClient.getClientId())).thenReturn(Optional.of(exampleClient)).thenThrow(NoSuchElementException.class);
         // tell Mockito to do nothing the first delete as repo delete returns void, and then throw an error when we delete again
         // finding out how to do this sucked
         doNothing().doThrow(new IllegalArgumentException()).when(repo).deleteById(exampleClient.getClientId());
@@ -116,8 +117,8 @@ public class clientServiceTests {
 
 
         assertTrue(clientService.deleteClient(1L)); // will likely implement both a by id or by full object system, for now just testing id
-        assertThrows(IllegalArgumentException.class, () -> clientService.deleteClient(1L)); // throw illegal argument for trying to delete an invalid id
-        assertThrows(IllegalArgumentException.class, () -> clientService.getClientById(1L)); // throw illegal argument for trying to read an invalid id
+        assertThrows(NoSuchElementException.class, () -> clientService.deleteClient(1L)); // throw illegal argument for trying to delete an invalid id
+        assertThrows(NoSuchElementException.class, () -> clientService.getClientById(1L)); // throw illegal argument for trying to read an invalid id
 
         // this was also annoying to find but is way cooler, I don't feel like using it for every test though
         // remember that the delete method will only be called once (on finding a record to delete)

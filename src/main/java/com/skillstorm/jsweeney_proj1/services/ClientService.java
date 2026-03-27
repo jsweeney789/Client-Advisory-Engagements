@@ -1,6 +1,7 @@
 package com.skillstorm.jsweeney_proj1.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import com.skillstorm.jsweeney_proj1.models.Client;
@@ -24,12 +25,12 @@ public class ClientService {
         return repository.findAll();
     }
 
-    public Client getClientById(Long id) throws IllegalArgumentException {
+    public Client getClientById(Long id) throws NoSuchElementException {
         Optional<Client> client = repository.findById(id);
         if (client.isPresent()) {
             return client.get();
         } else {
-            throw new IllegalArgumentException("No client with id: " + id);
+            throw new NoSuchElementException("No client with id: " + id);
         }
     }
 
@@ -37,21 +38,16 @@ public class ClientService {
         return repository.save(client);
     }
 
-    public boolean deleteClient(Long id) throws IllegalArgumentException {
-        if (getClientById(id) == null) {
-            throw new IllegalArgumentException("No client with id: " + id + " to remove.");
-        }
+    public boolean deleteClient(Long id) throws NoSuchElementException {
+        getClientById(id); // this will cause our error to be thrown if the client with specified id doesn't exist
         repository.deleteById(id);
         return true;
     }
 
 
     // overloading in case I ever need to delete a client with the client object, don't think it'll ever happen
-    public boolean deleteClient(Client client) throws IllegalArgumentException {
-        Long id = client.getClientId();
-        if (getClientById(id) == null) {
-            throw new IllegalArgumentException("No client with id: " + id + " to remove.");
-        }
+    public boolean deleteClient(Client client) throws NoSuchElementException {
+        getClientById(client.getClientId()); // this will cause our error to be thrown if the client with specified id doesn't exist
         repository.delete(client);
         return true;
     }

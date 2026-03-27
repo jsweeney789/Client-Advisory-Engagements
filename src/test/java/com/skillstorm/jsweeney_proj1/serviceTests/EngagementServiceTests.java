@@ -42,5 +42,7 @@ public class EngagementServiceTests {
     EngagementService engagementService;
 
 
+    // TODO: this -- also do annotations for the columns so that the repos can map them to the DB properly for our models
+    // and also on every class? I think every controller and service and repo also need annotations
     
 }
