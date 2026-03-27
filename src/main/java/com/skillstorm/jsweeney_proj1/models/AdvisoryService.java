@@ -1,5 +1,8 @@
 package com.skillstorm.jsweeney_proj1.models;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class AdvisoryService {
     // again, unsure for now if the enums make sense or not
     // using for now because these seem great for dropdown menus in frontend

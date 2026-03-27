@@ -1,5 +1,11 @@
 package com.skillstorm.jsweeney_proj1.repositories;
 
-public record ClientRepository() {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.skillstorm.jsweeney_proj1.models.Client;
+
+@Repository
+public interface ClientRepository extends JpaRepository<Client, Long> {
 
 }

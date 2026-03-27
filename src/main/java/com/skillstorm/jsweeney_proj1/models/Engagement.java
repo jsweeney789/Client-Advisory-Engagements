@@ -2,9 +2,12 @@ package com.skillstorm.jsweeney_proj1.models;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
+
 /**
  * Engagements are relationships between a client and an advisoryService
  */
+@Entity
 public class Engagement {
     public enum engagementStatus{ACTIVE, PAUSED, COMPLETED}
 

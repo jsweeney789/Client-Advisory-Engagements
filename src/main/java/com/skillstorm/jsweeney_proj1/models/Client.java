@@ -1,5 +1,8 @@
 package com.skillstorm.jsweeney_proj1.models;
 
+import jakarta.persistence.Entity;
+
+@Entity
 public class Client {
     // I made these enums exist but I'm not sure if I want to use them yet 
     // TODO: Ask Austin at code review if people use enums in development for cases like these
