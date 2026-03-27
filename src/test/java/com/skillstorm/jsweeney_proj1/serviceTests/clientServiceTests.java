@@ -24,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.skillstorm.jsweeney_proj1.models.Client;
+import com.skillstorm.jsweeney_proj1.models.Client.tier;
 import com.skillstorm.jsweeney_proj1.repositories.ClientRepository;
 import com.skillstorm.jsweeney_proj1.services.ClientService;
 
@@ -43,7 +44,7 @@ public class ClientServiceTests {
     @DisplayName("Test Client Service Create")
     public void serviceCreateClientTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
-                                                 "1234567890", "Standard", 750_000.00);
+                                                 "1234567890", tier.STANDARD, 750_000.00);
 
         when(repo.save(exampleClient)).thenReturn(exampleClient);
 
@@ -62,7 +63,7 @@ public class ClientServiceTests {
     @DisplayName("Test Client Service Read")
     public void serviceGetClientTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
-                                                 "1234567890", "Standard", 750_000.00);
+                                                 "1234567890", tier.STANDARD, 750_000.00);
         
         when(repo.findById(exampleClient.getClientId())).thenReturn(Optional.of(exampleClient));
 
@@ -85,7 +86,7 @@ public class ClientServiceTests {
     @DisplayName("Test Client Service Update")
     public void serviceUpdateClientTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
-                                                 "1234567890", "Standard", 750_000.00);
+                                                 "1234567890", tier.STANDARD, 750_000.00);
         // tell Mockito to have the repo save the original example
         when(repo.save(exampleClient)).thenReturn(exampleClient);
 
@@ -109,13 +110,13 @@ public class ClientServiceTests {
     @DisplayName("Test Client Service Delete")
     public void serviceDeleteClientTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
-                                                 "1234567890", "Standard", 750_000.00);
+                                                 "1234567890", tier.STANDARD, 750_000.00);
 
         // our delete method tries reading the client first to make sure it exists, so we have to simulate that, then we simulate reading it after it was deleted with an error
         when(repo.findById(exampleClient.getClientId())).thenReturn(Optional.of(exampleClient)).thenThrow(NoSuchElementException.class);
         // tell Mockito to do nothing the first delete as repo delete returns void, and then throw an error when we delete again
         // finding out how to do this sucked
-        doNothing().doThrow(new IllegalArgumentException()).when(repo).deleteById(exampleClient.getClientId());
+        doNothing().doThrow(new NoSuchElementException()).when(repo).deleteById(exampleClient.getClientId());
 
 
 

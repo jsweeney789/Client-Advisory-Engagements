@@ -30,6 +30,7 @@ import com.skillstorm.jsweeney_proj1.models.Advisory.deliveryFormatOptions;
 import com.skillstorm.jsweeney_proj1.models.Advisory.serviceType;
 import com.skillstorm.jsweeney_proj1.models.Engagement.engagementStatus;
 import com.skillstorm.jsweeney_proj1.models.Client;
+import com.skillstorm.jsweeney_proj1.models.Client.tier;
 import com.skillstorm.jsweeney_proj1.models.Engagement;
 import com.skillstorm.jsweeney_proj1.repositories.AdvisoryRepository;
 import com.skillstorm.jsweeney_proj1.repositories.EngagementRepository;
@@ -54,7 +55,7 @@ public class EngagementServiceTests {
     @DisplayName("Test Engagement Service Create")
         public void serviceCreateEngagementTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
-                                                 "1234567890", "Standard", 750_000.00);
+                                                 "1234567890", tier.STANDARD, 750_000.00);
         Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
         LocalDate exampleDate = LocalDate.of(2026, 3, 27);
         Engagement exampleEngagement = new Engagement(1L, exampleClient, exampleAdvisory, exampleDate, "example notes!.", engagementStatus.PAUSED);
@@ -75,7 +76,7 @@ public class EngagementServiceTests {
     @DisplayName("Test Engagement Service Read")
     public void serviceReadEngagementTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
-                                                 "1234567890", "Standard", 750_000.00);
+                                                 "1234567890", tier.STANDARD, 750_000.00);
         Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
         LocalDate exampleDate = LocalDate.of(2026, 3, 27);
         Engagement exampleEngagement = new Engagement(1L, exampleClient, exampleAdvisory, exampleDate, "example notes!.", engagementStatus.PAUSED);
@@ -96,23 +97,23 @@ public class EngagementServiceTests {
     @DisplayName("Test Engagement Service Update")
     public void serviceUpdateEngagementTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
-                                                    "1234567890", "Standard", 750_000.00);
+                                                    "1234567890", tier.STANDARD, 750_000.00);
         Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
         LocalDate exampleDate = LocalDate.of(2026, 3, 27);
         Engagement exampleEngagement = new Engagement(1L, exampleClient, exampleAdvisory, exampleDate, "example notes!.", engagementStatus.PAUSED);
         String firstNotes = exampleEngagement.getNotes();
 
         // save original example in repo
-        when(repo.save(exampleEngagement)).thenReturn(Optional.of(exampleEngagement));
+        when(repo.save(exampleEngagement)).thenReturn(exampleEngagement);
 
         Engagement preUpdateEngagement = engagementService.saveEngagement(exampleEngagement);
         exampleEngagement.setNotes("these notes are different!");
         
         // simluate saving over with the new data
-        when(repo.save(exampleEngagement)).thenReturn(Optional.of(exampleEngagement));
+        when(repo.save(exampleEngagement)).thenReturn(exampleEngagement);
         when(repo.findById(exampleEngagement.getEngagementId())).thenReturn(Optional.of(exampleEngagement));
 
-        Engagement postUpdateEngagement = engagementService.saveEngagement(exampleEngagement.getEngagementId());
+        Engagement postUpdateEngagement = engagementService.saveEngagement(exampleEngagement);
         Engagement postUpdateReadEngagement = engagementService.getEngagementById(exampleEngagement.getEngagementId());
 
         assertNotNull(postUpdateEngagement);
@@ -128,14 +129,14 @@ public class EngagementServiceTests {
     @DisplayName("Test Engagement Service Delete")
     public void serviceDeleteEngagementTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
-                                                 "1234567890", "Standard", 750_000.00);
+                                                 "1234567890", tier.STANDARD, 750_000.00);
         Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
         LocalDate exampleDate = LocalDate.of(2026, 3, 27);
         Engagement exampleEngagement = new Engagement(1L, exampleClient, exampleAdvisory, exampleDate, "example notes!.", engagementStatus.PAUSED);
 
         // our deletes use findById to make sure there is something to delete, so we need to mimic that functionality
-        when(repo.findById(exampleEngagement.getEngagementId())).thenReturn(Optional.of(exampleEngagement));
-        doNothing().doThrow(new IllegalArgumentException()).when(repo).deleteById(exampleEngagement.getEngagementId());
+        when(repo.findById(exampleEngagement.getEngagementId())).thenReturn(Optional.of(exampleEngagement)).thenThrow(NoSuchElementException.class);
+        doNothing().doThrow(new NoSuchElementException()).when(repo).deleteById(exampleEngagement.getEngagementId());
 
         assertTrue(engagementService.deleteEngagement(1L));
         assertThrows(NoSuchElementException.class, () -> engagementService.deleteEngagement(1L));

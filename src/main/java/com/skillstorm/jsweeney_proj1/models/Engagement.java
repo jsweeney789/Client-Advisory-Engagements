@@ -2,7 +2,12 @@ package com.skillstorm.jsweeney_proj1.models;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * Engagements are relationships between a client and an advisoryService
@@ -11,20 +16,37 @@ import jakarta.persistence.Entity;
 public class Engagement {
     public enum engagementStatus{ACTIVE, PAUSED, COMPLETED}
 
-    
+    @Id
+    @Column(name="engagement_id")
     private long engagementId;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name ="client_id")
     private Client client; // the id of the client associated with the engagement
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name="advisory_service_id")
     private Advisory advisory; // the id of the advisory Service associated with the engagement
+
+    @NotNull
+    @Column(name="start_date")
     private LocalDate startDate;
+
+    @NotNull
+    @Column(name="engagement_status")
     private engagementStatus status;
+
+    @Column(name="notes")
     private String notes;
 
-    // this constructor is overloaded with optional notes and status fields
+    // TODO: set up a good way to do this constructor as start_date, notes, and status are all optional
     public Engagement(long engagementId, Client client, Advisory advisory, LocalDate start_date) {
         this.engagementId = engagementId;
         this.client = client;
         this.advisory = advisory;
-        this.startDate = LocalDate.now(); // will use backend timer for Date, though DB also sets NOW() itself as default
+        this.startDate = start_date; // will use backend timer for Date, though DB also sets NOW() itself as default
         this.status = engagementStatus.ACTIVE; // assuming engagements are active on creation for now
     }
 
@@ -33,7 +55,7 @@ public class Engagement {
         this.engagementId = engagementId;
         this.client = client;
         this.advisory = advisory;
-        this.startDate = LocalDate.now(); // will use backend timer for Date, though DB also sets NOW() itself as default
+        this.startDate = start_date; // will use backend timer for Date, though DB also sets NOW() itself as default
         this.status = engagementStatus.ACTIVE; // assuming engagements are active on creation for now
         this.notes = notes;
     }
@@ -43,9 +65,9 @@ public class Engagement {
         this.engagementId = engagementId;
         this.client = client;
         this.advisory = advisory;
-        this.startDate = LocalDate.now(); // will use backend timer for Date, though DB also sets NOW() itself as default
+        this.startDate = start_date; // will use backend timer for Date, though DB also sets NOW() itself as default
         this.status = engagementStatus.ACTIVE; // assuming engagements are active on creation for now
-        this.notes = notes;
+
     }
 
     // with status and notes
@@ -54,9 +76,11 @@ public class Engagement {
         this.client = client;
         this.advisory = advisory;
         this.startDate = LocalDate.now(); // will use backend timer for Date, though DB also sets NOW() itself as default
-        this.status = engagementStatus.ACTIVE; // assuming engagements are active on creation for now
         this.notes = notes;
         this.status = status;
+    }
+
+    public Engagement() {
     }
 
     public long getEngagementId() {

@@ -1,21 +1,58 @@
 package com.skillstorm.jsweeney_proj1.models;
 
+import java.util.Set;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "client")
 public class Client {
-    // I made these enums exist but I'm not sure if I want to use them yet 
-    // TODO: Ask Austin at code review if people use enums in development for cases like these
+    // I made these enums exist but I'm not sure if I want to use them yet, especially the range one
     public enum tier{STANDARD, PREMIUM, PRIVATE_BANKING}
     public enum networthRange{UNDER_500K, BETWEEN_500K_2M, BETWEEN_2M_10M, OVER_10M}
 
+    @Id // TODO: figure out how our DB will handle our ids
+    @Column(name="client_id")
     private long clientId;
+
+    @NotBlank 
+    @Column(name="first_name")
     private String firstName;
+
+    @NotBlank
+    @Column(name="last_name")
     private String lastName;
+
+    @NotBlank
+    @Email
+    @Column(name="email")
     private String email;
+
+    @NotBlank
+    @Column(name="phone")
     private String phone;
-    private String tier;
+
+    @NotNull
+    @Column(name="tier")
+    @Enumerated(EnumType.STRING)
+    private tier tier;
+
+    @NotNull
+    @Column(name="net_worth")
+    @Enumerated(EnumType.STRING)
     private networthRange clientNetWorth;
+
+    @OneToMany(targetEntity = Engagement.class, mappedBy = "client")
+    Set<Engagement> engagements;
 
     /**
      * Helper method that allows our constructor to receive a net worth estimation and then map it to
@@ -47,7 +84,7 @@ public class Client {
      * @param clientTier the client's tier of service with us
      * @param netWorth the estimated net worth of the client
      */
-    public Client(long id, String firstName, String lastName, String email, String phone, String clientTier,
+    public Client(long id, String firstName, String lastName, String email, String phone, tier clientTier,
             double netWorth) {
         this.clientId = id; // generate id somewhere somehow and store it
         this.firstName = firstName;
@@ -56,6 +93,9 @@ public class Client {
         this.phone = phone;
         this.tier = clientTier;
         this.clientNetWorth = mapNetWorth(netWorth);
+    }
+    
+    public Client() {
     }
 
     public long getClientId() {
@@ -98,11 +138,11 @@ public class Client {
         this.phone = phone;
     }
 
-    public String getTier() {
+    public tier getTier() {
         return tier;
     }
 
-    public void setTier(String clientTier) {
+    public void setTier(tier clientTier) {
         this.tier = clientTier;
     }
 

@@ -1,6 +1,16 @@
 package com.skillstorm.jsweeney_proj1.models;
 
+import java.util.Set;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Advisory {
@@ -9,22 +19,63 @@ public class Advisory {
     public enum serviceType{TAX, ESTATE, PORTFOLIO, RETIREMENT}
     public enum deliveryFormatOptions{INPERSON, VIRTUAL, HYBRID}
 
+    @Id
+    @Column(name="advisory_service_id")
     private long advisoryId;
+
+    @NotBlank
+    @Column(name="service_name")
     private String name;
+
+    @NotNull
+    @Column(name="service_type")
+    @Enumerated(EnumType.STRING)
     private serviceType serviceType;
+
+    @NotNull
+    @Column(name="delivery_format")
+    @Enumerated(EnumType.STRING)
     private deliveryFormatOptions deliveryFormat;
+
+    @NotNull
+    @PositiveOrZero 
+    @Column(name="annual_fee")
     private double annualFee;
 
-    
+    @NotNull
+    @Column(name="is_active_status")
+    private Boolean isActive;
+
+    @OneToMany(targetEntity = Engagement.class, mappedBy = "advisory")
+    Set<Engagement> engagements;
+
+    // this constructor is overloaded with an optional isActive param. For now we assume it's active on creation
     public Advisory(long advisoryId, String name, serviceType service,
-            deliveryFormatOptions deliveryFormat, double annualFee) {
+                deliveryFormatOptions deliveryFormat, double annualFee) {
         this.advisoryId = advisoryId;
         this.name = name;
         this.serviceType = service;
         this.deliveryFormat = deliveryFormat;
         this.annualFee = annualFee;
+        this.isActive = true;
     }
 
+    // with explicit isActive assignemnt
+    public Advisory(long advisoryId, String name, serviceType service,
+            deliveryFormatOptions deliveryFormat, double annualFee, boolean isActive) {
+        this.advisoryId = advisoryId;
+        this.name = name;
+        this.serviceType = service;
+        this.deliveryFormat = deliveryFormat;
+        this.annualFee = annualFee;
+        this.isActive = isActive;
+    }
+
+    
+
+
+    public Advisory() {
+    }
 
     public long getAdvisoryId() {
         return advisoryId;

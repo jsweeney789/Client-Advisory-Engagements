@@ -10,6 +10,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -105,15 +106,15 @@ public class AdvisoryServiceTests {
         Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
 
         
-        when(repo.findById(exampleAdvisory.getAdvisoryId())).thenReturn(Optional.of(exampleAdvisory)).thenThrow(IllegalArgumentException.class);
+        when(repo.findById(exampleAdvisory.getAdvisoryId())).thenReturn(Optional.of(exampleAdvisory)).thenThrow(NoSuchElementException.class);
         
-        doNothing().doThrow(new IllegalArgumentException()).when(repo).deleteById(exampleAdvisory.getAdvisoryId());
+        doNothing().doThrow(new NoSuchElementException()).when(repo).deleteById(exampleAdvisory.getAdvisoryId());
 
 
 
         assertTrue(advisoryService.deleteAdvisory(1L)); 
-        assertThrows(IllegalArgumentException.class, () -> advisoryService.deleteAdvisory(1L)); 
-        assertThrows(IllegalArgumentException.class, () -> advisoryService.getAdvisoryById(1L)); 
+        assertThrows(NoSuchElementException.class, () -> advisoryService.deleteAdvisory(1L)); 
+        assertThrows(NoSuchElementException.class, () -> advisoryService.getAdvisoryById(1L)); 
 
         
         verify(repo, times(1)).deleteById(1L);

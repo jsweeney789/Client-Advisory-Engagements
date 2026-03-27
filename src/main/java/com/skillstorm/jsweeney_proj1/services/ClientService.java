@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.skillstorm.jsweeney_proj1.models.Client;
 import com.skillstorm.jsweeney_proj1.repositories.ClientRepository;
 
+@Service
 public class ClientService {
     
     private final ClientRepository repository;

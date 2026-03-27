@@ -3,7 +3,7 @@ spring:
         ansi:
             enabled: always
     datasource:
-        url: jdbc:postgresql://localhost:5432/advisoryManager
+        url: jdbc:postgresql://localhost:5432/advisory_manager
         # need to do some password shit, lowkey wasn't paying attentino watch video
         username: postgres
         password: Or35qm356!

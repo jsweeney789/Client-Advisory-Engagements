@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.skillstorm.jsweeney_proj1.models.*;
 import com.skillstorm.jsweeney_proj1.models.Client.networthRange;
+import com.skillstorm.jsweeney_proj1.models.Client.tier;
 import com.skillstorm.jsweeney_proj1.models.Advisory.deliveryFormatOptions;
 import com.skillstorm.jsweeney_proj1.models.Advisory.serviceType;
 import com.skillstorm.jsweeney_proj1.models.Engagement.engagementStatus;
@@ -28,14 +29,14 @@ public class JavaModelTests {
     @DisplayName("Client Object Creation Test")
     public void clientCreationTest() {
         Client client = new Client(1L, "Jacob", "Sweeney", "jsweeney@skillstorm.com", 
-                                    "+1-123-456-7890", "Premium", 250_000.00);
+                                    "+1-123-456-7890", tier.PREMIUM, 250_000.00);
         assertNotNull(client);
         assertEquals(client.getClientId(), 1);
         assertEquals(client.getFirstName(), "Jacob");
         assertEquals(client.getLastName(), "Sweeney");
         assertEquals(client.getEmail(), "jsweeney@skillstorm.com");
         assertEquals(client.getPhone(), "+1-123-456-7890");
-        assertEquals(client.getTier(), "Premium");
+        assertEquals(client.getTier(), tier.PREMIUM);
         assertEquals(client.getEstNetWorth(), networthRange.UNDER_500K);
     }
 
@@ -59,7 +60,7 @@ public class JavaModelTests {
         Advisory advisory = new Advisory(2, "Business Advisory LLC", serviceType.TAX, deliveryFormatOptions.VIRTUAL, 1_000.00);
 
         Client client = new Client(1L, "Jacob", "Sweeney", "jsweeney@skillstorm.com", 
-                                    "+1-123-456-7890", "Premium", 250_000.00);
+                                    "+1-123-456-7890", tier.STANDARD, 250_000.00);
 
         Engagement engagement = new Engagement(1L, client, advisory, exampleDate);
         

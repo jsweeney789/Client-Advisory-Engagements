@@ -1,5 +1,7 @@
 package com.skillstorm.jsweeney_proj1.services;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -7,6 +9,7 @@ import java.util.Optional;
 import com.skillstorm.jsweeney_proj1.models.Advisory;
 import com.skillstorm.jsweeney_proj1.repositories.AdvisoryRepository;
 
+@Service
 public class AdvisoryService {
     
     private final AdvisoryRepository repository;
@@ -33,7 +36,7 @@ public class AdvisoryService {
     }
 
     public boolean deleteAdvisory(Long id) throws NoSuchElementException {
-        getAdvisoryById(id); // this throws an excption if it doesn't exist
+        getAdvisoryById(id); // this throws an exception if it doesn't exist
         repository.deleteById(id);
         return true;
     }
