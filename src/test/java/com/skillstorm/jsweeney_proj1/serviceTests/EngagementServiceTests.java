@@ -3,7 +3,6 @@ package com.skillstorm.jsweeney_proj1.serviceTests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doNothing;
@@ -15,15 +14,12 @@ import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.skillstorm.jsweeney_proj1.models.Advisory;
 import com.skillstorm.jsweeney_proj1.models.Advisory.deliveryFormatOptions;
@@ -32,9 +28,7 @@ import com.skillstorm.jsweeney_proj1.models.Engagement.engagementStatus;
 import com.skillstorm.jsweeney_proj1.models.Client;
 import com.skillstorm.jsweeney_proj1.models.Client.tier;
 import com.skillstorm.jsweeney_proj1.models.Engagement;
-import com.skillstorm.jsweeney_proj1.repositories.AdvisoryRepository;
 import com.skillstorm.jsweeney_proj1.repositories.EngagementRepository;
-import com.skillstorm.jsweeney_proj1.services.AdvisoryService;
 import com.skillstorm.jsweeney_proj1.services.EngagementService;
 
 
@@ -53,7 +47,7 @@ public class EngagementServiceTests {
     // and also on every class? I think every controller and service and repo also need annotations
     @Test
     @DisplayName("Test Engagement Service Create")
-        public void serviceCreateEngagementTest() {
+    public void serviceCreateEngagementTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
                                                  "1234567890", tier.STANDARD, 750_000.00);
         Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
@@ -123,6 +117,7 @@ public class EngagementServiceTests {
         assertEquals(postUpdateEngagement, postUpdateReadEngagement);
         assertEquals(postUpdateEngagement, exampleEngagement);
         assertEquals(exampleEngagement, postUpdateReadEngagement);
+        assertNotEquals(postUpdateEngagement, preUpdateEngagement);
     }
 
     @Test
