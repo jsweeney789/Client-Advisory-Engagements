@@ -42,7 +42,8 @@ public class Advisory {
     @Column(name="annual_fee")
     private double annualFee;
 
-    @NotNull
+    // db has this set as not null but with the default handling assuming its true just like our constructor, so I removed the @NotNull from here
+    // even though it doesn't really make sense for a column to be neither active nor inactive, it is just enforced in the db not here
     @Column(name="is_active_status")
     private Boolean isActive;
 

@@ -89,7 +89,7 @@ public class EngagementControllerTests {
         Engagement exampleEngagement = new Engagement(1L, exampleClient, exampleAdvisory, exampleDate, "example notes!.", engagementStatus.PAUSED);
         
         when(service.saveEngagement(exampleEngagement)).thenReturn(exampleEngagement);
-        mockMvc.perform(post("/engagement").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post("/engagements").contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(exampleEngagement)))
             .andExpect(status().isCreated())
             .andExpect(content().json(objectMapper.writeValueAsString(exampleEngagement)));
@@ -97,7 +97,7 @@ public class EngagementControllerTests {
         exampleEngagement.setNotes("These notes are different than before!");
 
         when(service.saveEngagement(exampleEngagement)).thenReturn(exampleEngagement);
-        mockMvc.perform(put("/engagement/{id}", exampleEngagement.getEngagementId()).contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(put("/engagements/{id}", exampleEngagement.getEngagementId()).contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(exampleEngagement)))
             .andExpect(status().isOk())
             .andExpect(content().json(objectMapper.writeValueAsString(exampleEngagement)));

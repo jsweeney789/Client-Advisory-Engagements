@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS advisory_service (
 	service_name VARCHAR(50) NOT NULL,
 	service_type advisory_service_type_enum NOT NULL,
 	delivery_format advisory_service_delivery_format_enum NOT NULL,
-	is_active_status BOOLEAN DEFAULT TRUE, /** options are available / discontinued in write-up */
+	is_active_status BOOLEAN NOT NULL DEFAULT TRUE, /** options are available / discontinued in write-up */
 	annual_fee NUMERIC(10,2) /** copied from chinook-example's table creation for a price  */
 );
 

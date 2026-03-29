@@ -16,6 +16,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import java.util.NoSuchElementException;
 
@@ -32,8 +33,8 @@ import com.skillstorm.jsweeney_proj1.services.ClientService;
  * https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/test/web/servlet/result/StatusResultMatchers.html?utm_source=chatgpt.com
  */
 
-@WebMvcTest(controllers = ClientController.class)
 @AutoConfigureMockMvc
+@WebMvcTest(controllers = ClientController.class)
 public class ClientControllerTests {
     @Autowired
     private MockMvc mockMvc;
@@ -64,7 +65,7 @@ public class ClientControllerTests {
                                                  "1234567890", tier.STANDARD, 750_000.00);
         // testing successful get
         when(service.getClientById(exampleClient.getClientId())).thenReturn(exampleClient);
-        mockMvc.perform(get("/clients/{id}", exampleClient.getClientId()))
+        mockMvc.perform(get("/clients/{id}", exampleClient.getClientId())).andDo(print())
             .andExpect(status().isOk())
             .andExpect(content().json(objectMapper.writeValueAsString(exampleClient)));
 

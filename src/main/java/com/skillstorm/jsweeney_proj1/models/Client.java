@@ -2,6 +2,8 @@ package com.skillstorm.jsweeney_proj1.models;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -49,6 +51,7 @@ public class Client {
     @NotNull
     @Column(name="net_worth")
     @Enumerated(EnumType.STRING)
+    @JsonProperty("estNetWorth") // helps jackson understand this enum as doing the mapping from double to enum made it confused in testing
     private networthRange clientNetWorth;
 
     @OneToMany(targetEntity = Engagement.class, mappedBy = "client")
@@ -60,7 +63,7 @@ public class Client {
      * @param netWorth the estimated net worth of the client
      * @return the range that the client is in which we usually filter on
      */
-    private networthRange mapNetWorth(double netWorth) {
+    private static networthRange mapNetWorth(double netWorth) {
         if (netWorth < 500_000.00) {
             return networthRange.UNDER_500K;
 
