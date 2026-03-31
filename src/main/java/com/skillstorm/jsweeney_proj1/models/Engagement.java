@@ -4,15 +4,19 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 /**
  * Engagements are relationships between a client and an advisoryService
  */
 @Entity
+@Table(name="engagement")
 public class Engagement {
     public enum engagementStatus{ACTIVE, PAUSED, COMPLETED}
 
@@ -35,6 +39,7 @@ public class Engagement {
     private LocalDate startDate;
 
     @NotNull
+    @Enumerated(EnumType.STRING)
     @Column(name="engagement_status")
     private engagementStatus status;
 

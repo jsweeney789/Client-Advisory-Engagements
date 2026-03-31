@@ -8,11 +8,13 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
+@Table(name="advisory_service")
 public class Advisory {
     // again, unsure for now if the enums make sense or not
     // using for now because these seem great for dropdown menus in frontend
@@ -45,7 +47,7 @@ public class Advisory {
     // db has this set as not null but with the default handling assuming its true just like our constructor, so I removed the @NotNull from here
     // even though it doesn't really make sense for a column to be neither active nor inactive, it is just enforced in the db not here
     @Column(name="is_active_status")
-    private Boolean isActive;
+    private boolean isActive;
 
     @OneToMany(targetEntity = Engagement.class, mappedBy = "advisory")
     Set<Engagement> engagements;
