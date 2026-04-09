@@ -6,6 +6,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -18,12 +20,14 @@ import jakarta.validation.constraints.PositiveOrZero;
 public class Advisory {
     // again, unsure for now if the enums make sense or not
     // using for now because these seem great for dropdown menus in frontend
-    public enum serviceType{TAX, ESTATE, PORTFOLIO, RETIREMENT}
-    public enum deliveryFormatOptions{INPERSON, VIRTUAL, HYBRID}
+    public enum serviceType{BUDGETING, CASH_FLOW_ANALYSIS, DEBT_MANAGEMENT, ESTATE_PLANNING, 
+        INVESTMENT_MANAGEMENT, RETIREMENT_PLANNING, RISK_MNGMENT_INSURANCE, TAX_PLANNING};
+    public enum deliveryFormatOptions{IN_PERSON, VIRTUAL, HYBRID};
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="advisory_service_id")
-    private long advisoryId;
+    private Long advisoryId;
 
     @NotBlank
     @Column(name="service_name")
@@ -47,45 +51,42 @@ public class Advisory {
     // db has this set as not null but with the default handling assuming its true just like our constructor, so I removed the @NotNull from here
     // even though it doesn't really make sense for a column to be neither active nor inactive, it is just enforced in the db not here
     @Column(name="is_active_status")
-    private boolean isActive;
+    private boolean active;
 
     @OneToMany(targetEntity = Engagement.class, mappedBy = "advisory")
     Set<Engagement> engagements;
 
     // this constructor is overloaded with an optional isActive param. For now we assume it's active on creation
-    public Advisory(long advisoryId, String name, serviceType service,
+    public Advisory(Long advisoryId, String name, serviceType service,
                 deliveryFormatOptions deliveryFormat, double annualFee) {
         this.advisoryId = advisoryId;
         this.name = name;
         this.serviceType = service;
         this.deliveryFormat = deliveryFormat;
         this.annualFee = annualFee;
-        this.isActive = true;
+        this.active = true;
     }
 
     // with explicit isActive assignemnt
-    public Advisory(long advisoryId, String name, serviceType service,
+    public Advisory(Long advisoryId, String name, serviceType service,
             deliveryFormatOptions deliveryFormat, double annualFee, boolean isActive) {
         this.advisoryId = advisoryId;
         this.name = name;
         this.serviceType = service;
         this.deliveryFormat = deliveryFormat;
         this.annualFee = annualFee;
-        this.isActive = isActive;
+        this.active = isActive;
     }
-
-    
-
 
     public Advisory() {
     }
 
-    public long getAdvisoryId() {
+    public Long getAdvisoryId() {
         return advisoryId;
     }
 
 
-    public void setAdvisoryServiceId(long advisoryServiceId) {
+    public void setAdvisoryServiceId(Long advisoryServiceId) {
         this.advisoryId = advisoryServiceId;
     }
 
@@ -128,7 +129,14 @@ public class Advisory {
     public void setAnnualFee(double annualFee) {
         this.annualFee = annualFee;
     }
+    
+    public boolean isActive() {
+        return active;
+    }
 
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     @Override
     public int hashCode() {
@@ -174,7 +182,7 @@ public class Advisory {
     @Override
     public String toString() {
         return "Advisory [advisoryId=" + advisoryId + ", name=" + name + ", serviceType=" + serviceType
-                + ", deliveryFormat=" + deliveryFormat + ", annualFee=" + annualFee + "]";
+                + ", deliveryFormat=" + deliveryFormat + ", annualFee=" + annualFee + ", active=" + active + "]";
     }
     
 }

@@ -6,6 +6,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -21,8 +23,9 @@ public class Engagement {
     public enum engagementStatus{ACTIVE, PAUSED, COMPLETED}
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="engagement_id")
-    private long engagementId;
+    private Long engagementId;
 
     @NotNull
     @ManyToOne
@@ -47,7 +50,7 @@ public class Engagement {
     private String notes;
 
     // TODO: set up a good way to do this constructor as start_date, notes, and status are all optional
-    public Engagement(long engagementId, Client client, Advisory advisory, LocalDate start_date) {
+    public Engagement(Long engagementId, Client client, Advisory advisory, LocalDate start_date) {
         this.engagementId = engagementId;
         this.client = client;
         this.advisory = advisory;
@@ -56,7 +59,7 @@ public class Engagement {
     }
 
     // with notes but no status
-    public Engagement(long engagementId, Client client, Advisory advisory, LocalDate start_date, String notes) {
+    public Engagement(Long engagementId, Client client, Advisory advisory, LocalDate start_date, String notes) {
         this.engagementId = engagementId;
         this.client = client;
         this.advisory = advisory;
@@ -66,7 +69,7 @@ public class Engagement {
     }
 
     // with status but no notes
-    public Engagement(long engagementId, Client client, Advisory advisory, LocalDate start_date, engagementStatus status) {
+    public Engagement(Long engagementId, Client client, Advisory advisory, LocalDate start_date, engagementStatus status) {
         this.engagementId = engagementId;
         this.client = client;
         this.advisory = advisory;
@@ -76,7 +79,7 @@ public class Engagement {
     }
 
     // with status and notes
-    public Engagement(long engagementId, Client client, Advisory advisory, LocalDate start_date, String notes, engagementStatus status) {
+    public Engagement(Long engagementId, Client client, Advisory advisory, LocalDate start_date, String notes, engagementStatus status) {
         this.engagementId = engagementId;
         this.client = client;
         this.advisory = advisory;
@@ -88,11 +91,11 @@ public class Engagement {
     public Engagement() {
     }
 
-    public long getEngagementId() {
+    public Long getEngagementId() {
         return engagementId;
     }
 
-    public void setEngagementId(long engagementId) {
+    public void setEngagementId(Long engagementId) {
         this.engagementId = engagementId;
     }
 

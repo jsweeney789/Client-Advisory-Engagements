@@ -3,6 +3,7 @@ package com.skillstorm.jsweeney_proj1.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skillstorm.jsweeney_proj1.Dtos.ClientDto;
 import com.skillstorm.jsweeney_proj1.models.Client;
 import com.skillstorm.jsweeney_proj1.services.ClientService;
 
@@ -13,6 +14,7 @@ import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,8 +26,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/clients")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class ClientController {
-    private final ClientService service; // TODO: check on making other services/repos and stuff final because they just should be
+    private final ClientService service; 
 
     public ClientController(ClientService service) {
         this.service = service;
@@ -33,9 +36,9 @@ public class ClientController {
 
     // haven't made tester for this yet because this isn't the most basic CRUD operation, will look into as beginning of creating real functionalities.
     @GetMapping()
-    public ResponseEntity<List<Client>> getAllClients() {
-        List clients = service.getAllClients();
-        return new ResponseEntity<List<Client>>(clients, HttpStatus.OK);
+    public ResponseEntity<List<ClientDto>> getAllClients() {
+        List<ClientDto> clients = service.getAllClientsWithObligations();
+        return new ResponseEntity<List<ClientDto>>(clients, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

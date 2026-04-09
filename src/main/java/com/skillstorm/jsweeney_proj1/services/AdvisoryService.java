@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import com.skillstorm.jsweeney_proj1.Dtos.AdvisoryDto;
 import com.skillstorm.jsweeney_proj1.models.Advisory;
 import com.skillstorm.jsweeney_proj1.repositories.AdvisoryRepository;
 
@@ -18,9 +19,10 @@ public class AdvisoryService {
         this.repository = repository;
     }
 
-    public List<Advisory> getAllAdvisories() {
-        return repository.findAll();
+    public List<AdvisoryDto> getAllAdvisories() {
+        return repository.getAllAdvisoriesWithClientCounts();
     }
+
 
     public Advisory getAdvisoryById(Long id) throws NoSuchElementException {
         Optional<Advisory> advisory = repository.findById(id);

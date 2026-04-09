@@ -3,10 +3,10 @@ DROP TABLE IF EXISTS advisory_service;
 DROP TABLE IF EXISTS engagement;
 
 CREATE TYPE client_tier_enum AS ENUM('Standard', 'Premium', 'Private Banking');
-CREATE TYPE client_net_worth_enum AS ENUM ('<$500K', '$500K-$2M', '$2M-$10M', '$10M+');
+CREATE TYPE client_net_worth_enum AS ENUM ('UNDER_500K', 'BETWEEN_500K_2M', 'BETWEEN_2M_10M', 'OVER_10M');
 
 CREATE TABLE IF NOT EXISTS client (
-	client_id INTEGER PRIMARY KEY,              /** auto increment is great for basic int, spring can generate UUID if desired */
+	client_id BIGSERIAL PRIMARY KEY,              /** auto increment is great for basic int, spring can generate UUID if desired */
 	first_name VARCHAR(50) NOT NULL,                   
 	last_name VARCHAR(50) NOT NULL,
 	email VARCHAR(50) NOT NULL,
@@ -17,11 +17,12 @@ CREATE TABLE IF NOT EXISTS client (
 	/** Note to self, use ALTER TABLE later on to adjust */
 );
 
-CREATE TYPE advisory_service_type_enum AS ENUM ('Tax Planning', 'Estate Planning', 'Porfolio Review', 'Retirement Planning');
+CREATE TYPE advisory_service_type_enum AS ENUM ('Budgeting', 'Cash Flow Analysis', 'Debt Management', 'Estate Planning', 
+'Investment Management', 'Retirement Planning', 'Risk Management and Insurance', 'Tax Planning');
 CREATE TYPE advisory_service_delivery_format_enum AS ENUM ('In-Person', 'Virtual', 'Hybrid');
 
 CREATE TABLE IF NOT EXISTS advisory_service (
-	advisory_service_id INTEGER PRIMARY KEY,
+	advisory_service_id BIGSERIAL PRIMARY KEY,
 	service_name VARCHAR(50) NOT NULL,
 	service_type advisory_service_type_enum NOT NULL,
 	delivery_format advisory_service_delivery_format_enum NOT NULL,
@@ -32,7 +33,7 @@ CREATE TABLE IF NOT EXISTS advisory_service (
 CREATE TYPE engagement_status_enum AS ENUM ('Active', 'Paused', 'Completed');
 
 CREATE TABLE IF NOT EXISTS engagement (
-	engagement_id INTEGER PRIMARY KEY,
+	engagement_id BIGSERIAL PRIMARY KEY,
 	advisory_service_id INTEGER REFERENCES advisory_service(advisory_service_id),
 	client_id INTEGER REFERENCES client(client_id),
 	start_date DATE DEFAULT CURRENT_DATE,

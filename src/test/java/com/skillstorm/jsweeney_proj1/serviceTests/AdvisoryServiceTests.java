@@ -42,7 +42,7 @@ public class AdvisoryServiceTests {
     @Test
     @DisplayName("Test Advisory Service Create")
     public void serviceCreateAdvisoryTest() { 
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         when(repo.save(exampleAdvisory)).thenReturn(exampleAdvisory);
         Advisory resultAdvisory = advisoryService.saveAdvisory(exampleAdvisory);
         assertNotNull(resultAdvisory);
@@ -56,7 +56,7 @@ public class AdvisoryServiceTests {
     @Test
     @DisplayName("Test Advisory Service Read")
     public void serviceGetAdvisoryTest() {
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         
         
         when(repo.findById(exampleAdvisory.getAdvisoryId())).thenReturn(Optional.of(exampleAdvisory));
@@ -77,12 +77,12 @@ public class AdvisoryServiceTests {
     @Test
     @DisplayName("Test Advisory Service Update")
     public void serviceUpdateAdvisoryTest() {
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         when(repo.save(exampleAdvisory)).thenReturn(exampleAdvisory);
         // tell Mockito to have the repo save the original example
         when(repo.save(exampleAdvisory)).thenReturn(exampleAdvisory);
 
-        Advisory preUpdate = advisoryService.saveAdvisory(exampleAdvisory);
+        double preUpdateFee = advisoryService.saveAdvisory(exampleAdvisory).getAnnualFee();
         exampleAdvisory.setAnnualFee(1_500.00);
 
          // tell Mockito to have the repo save over the first example, and also read it back when we getId it
@@ -96,13 +96,13 @@ public class AdvisoryServiceTests {
         assertNotNull(postUpdateRead);
         assertEquals(exampleAdvisory.getAnnualFee(), postUpdate.getAnnualFee());
         assertEquals(exampleAdvisory.getAnnualFee(), postUpdateRead.getAnnualFee());
-        assertNotEquals(postUpdate, preUpdate);
+        assertNotEquals(postUpdate.getAnnualFee(), preUpdateFee);
     }
 
     @Test
     @DisplayName("Test Advisory Service Delete")
     public void serviceDeleteAdvisoryTest() {
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
 
         
         when(repo.findById(exampleAdvisory.getAdvisoryId())).thenReturn(Optional.of(exampleAdvisory)).thenThrow(NoSuchElementException.class);

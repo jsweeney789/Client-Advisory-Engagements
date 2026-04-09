@@ -43,7 +43,7 @@ public class AdvisoryControllerTests {
     @Test
     @DisplayName("Test Advisory Controller POST")
     public void controllerPostAdvisoryTest() throws Exception {
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         
         when(service.saveAdvisory(exampleAdvisory)).thenReturn(exampleAdvisory);
         mockMvc.perform(post("/advisories").contentType(MediaType.APPLICATION_JSON)
@@ -55,7 +55,7 @@ public class AdvisoryControllerTests {
     @Test
     @DisplayName("Test Advisory Controller GET")
     public void controllerGetAdvisoryTest() throws Exception {
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         
         when(service.getAdvisoryById(exampleAdvisory.getAdvisoryId())).thenReturn(exampleAdvisory);
         mockMvc.perform(get("/advisories/{id}", exampleAdvisory.getAdvisoryId()).contentType(MediaType.APPLICATION_JSON)
@@ -71,7 +71,7 @@ public class AdvisoryControllerTests {
     @Test
     @DisplayName("Test Advisory Controller PUT")
     public void controllerPutClientTest() throws Exception {
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         
         when(service.saveAdvisory(exampleAdvisory)).thenReturn(exampleAdvisory);
         mockMvc.perform(post("/advisories").contentType(MediaType.APPLICATION_JSON)
@@ -92,7 +92,7 @@ public class AdvisoryControllerTests {
     @Test
     @DisplayName("Test Advisory Controller DELETE")
     public void controllerDeleteClientTest() throws Exception {
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
 
         
         when(service.deleteAdvisory(exampleAdvisory.getAdvisoryId())).thenReturn(true).thenThrow(NoSuchElementException.class);

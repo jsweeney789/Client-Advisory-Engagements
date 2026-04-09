@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.skillstorm.jsweeney_proj1.Dtos.ClientDto;
 import com.skillstorm.jsweeney_proj1.models.Client;
 import com.skillstorm.jsweeney_proj1.repositories.ClientRepository;
 
@@ -26,6 +27,10 @@ public class ClientService {
 
     public List<Client> getAllClients() {
         return repository.findAll();
+    }
+
+    public List<ClientDto> getAllClientsWithObligations() {
+        return repository.getAllClientsWithObligations();
     }
 
     public Client getClientById(Long id) throws NoSuchElementException {

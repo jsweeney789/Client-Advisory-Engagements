@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skillstorm.jsweeney_proj1.Dtos.AdvisoryDto;
 import com.skillstorm.jsweeney_proj1.models.Advisory;
 import com.skillstorm.jsweeney_proj1.services.AdvisoryService;
 
@@ -22,6 +24,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/advisories")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class AdvisoryController {
     private final AdvisoryService service;
 
@@ -32,9 +35,9 @@ public class AdvisoryController {
 
     // haven't made tester for this yet because this isn't the most basic CRUD operation, will look into as beginning of creating real functionalities.
     @GetMapping()
-    public ResponseEntity<List<Advisory>> getAllAdvisories() {
-        List advisories = service.getAllAdvisories();
-        return new ResponseEntity<List<Advisory>>(advisories, HttpStatus.OK);
+    public ResponseEntity<List<AdvisoryDto>> getAllAdvisories() {
+        List<AdvisoryDto> advisories = service.getAllAdvisories();
+        return new ResponseEntity<List<AdvisoryDto>>(advisories, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -55,6 +58,7 @@ public class AdvisoryController {
 
     @PostMapping()
     public ResponseEntity<Advisory> createAdvisory(@Valid @RequestBody Advisory newAdvisory) {
+        System.out.println(newAdvisory.toString());
         Advisory advisory = service.saveAdvisory(newAdvisory);
         if (advisory == null) {
             return ResponseEntity.notFound().build();

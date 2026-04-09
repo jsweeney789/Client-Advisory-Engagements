@@ -8,6 +8,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -23,8 +25,9 @@ public class Client {
     public enum networthRange{UNDER_500K, BETWEEN_500K_2M, BETWEEN_2M_10M, OVER_10M}
 
     @Id // TODO: figure out how our DB will handle our ids
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="client_id")
-    private long clientId;
+    private Long clientId;
 
     @NotBlank 
     @Column(name="first_name")
@@ -87,7 +90,7 @@ public class Client {
      * @param clientTier the client's tier of service with us
      * @param netWorth the estimated net worth of the client
      */
-    public Client(long id, String firstName, String lastName, String email, String phone, tier clientTier,
+    public Client(Long id, String firstName, String lastName, String email, String phone, tier clientTier,
             double netWorth) {
         this.clientId = id; // generate id somewhere somehow and store it
         this.firstName = firstName;
@@ -97,15 +100,27 @@ public class Client {
         this.tier = clientTier;
         this.clientNetWorth = mapNetWorth(netWorth);
     }
+
+    // this constructor more closely emulates what the frontend is actually doing for now, though I like having the capabilities of the above one as an option
+    public Client(Long id, String firstName, String lastName, String email, String phone, tier clientTier,
+            networthRange netWorth) {
+        this.clientId = id; // generate id somewhere somehow and store it
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.tier = clientTier;
+        this.clientNetWorth = netWorth;
+    }
     
     public Client() {
     }
 
-    public long getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(long clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 

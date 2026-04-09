@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,8 +23,9 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/engagements")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class EngagementController {
-    private final EngagementService service; // TODO: check on making other services/repos and stuff final because they just should be
+    private final EngagementService service; 
 
     public EngagementController(EngagementService service) {
         this.service = service;
@@ -32,7 +34,7 @@ public class EngagementController {
     // haven't made tester for this yet because this isn't the most basic CRUD operation, will look into as beginning of creating real functionalities.
     @GetMapping()
     public ResponseEntity<List<Engagement>> getAllEngagements() {
-        List engagements = service.getAllEngagements();
+        List<Engagement> engagements = service.getAllEngagements();
         return new ResponseEntity<List<Engagement>>(engagements, HttpStatus.OK);
     }
 

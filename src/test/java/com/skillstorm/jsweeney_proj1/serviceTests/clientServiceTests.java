@@ -88,7 +88,7 @@ public class ClientServiceTests {
         // tell Mockito to have the repo save the original example
         when(repo.save(exampleClient)).thenReturn(exampleClient);
 
-        Client preUpdate = clientService.saveClient(exampleClient);
+        String preUpdateEmail = clientService.saveClient(exampleClient).getEmail();
         exampleClient.setEmail("differentEmail@gmail.com");
 
         // tell Mockito to have the repo save over the first example, and also read it back when we getId it
@@ -102,7 +102,7 @@ public class ClientServiceTests {
         assertNotNull(postUpdateRead);
         assertEquals(exampleClient.getEmail(), postUpdate.getEmail());
         assertEquals(exampleClient.getEmail(), postUpdateRead.getEmail());
-        assertNotEquals(postUpdate, preUpdate);
+        assertNotEquals(postUpdate.getEmail(), preUpdateEmail);
     }
 
     @Test

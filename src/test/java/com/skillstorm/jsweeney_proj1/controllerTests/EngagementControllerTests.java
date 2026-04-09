@@ -48,7 +48,7 @@ public class EngagementControllerTests {
     public void controllerPostEngagementTest() throws Exception {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
                                                  "1234567890", tier.STANDARD, 750_000.00);
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         LocalDate exampleDate = LocalDate.of(2026, 3, 27);
         Engagement exampleEngagement = new Engagement(1L, exampleClient, exampleAdvisory, exampleDate, "example notes!.", engagementStatus.PAUSED);
         
@@ -64,7 +64,7 @@ public class EngagementControllerTests {
     public void controllerGetEngagementTest() throws Exception {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
                                                  "1234567890", tier.STANDARD, 750_000.00);
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         LocalDate exampleDate = LocalDate.of(2026, 3, 27);
         Engagement exampleEngagement = new Engagement(1L, exampleClient, exampleAdvisory, exampleDate, "example notes!.", engagementStatus.PAUSED);
 
@@ -84,7 +84,7 @@ public class EngagementControllerTests {
     public void controllerPutEngagementTest() throws Exception {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
                                                  "1234567890", tier.STANDARD, 750_000.00);
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         LocalDate exampleDate = LocalDate.of(2026, 3, 27);
         Engagement exampleEngagement = new Engagement(1L, exampleClient, exampleAdvisory, exampleDate, "example notes!.", engagementStatus.PAUSED);
         
@@ -108,7 +108,7 @@ public class EngagementControllerTests {
     public void controllerDeleteEngagementTest() throws Exception {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
                                                  "1234567890", tier.STANDARD, 750_000.00);
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         LocalDate exampleDate = LocalDate.of(2026, 3, 27);
         Engagement exampleEngagement = new Engagement(1L, exampleClient, exampleAdvisory, exampleDate, "example notes!.", engagementStatus.PAUSED);
         

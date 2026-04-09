@@ -42,11 +42,11 @@ public class JavaModelTests {
     @Test
     @DisplayName("Advisory Object Creation Test")
     public void advisoryCreationTest() {
-        Advisory advisory = new Advisory(2, "Business Advisory LLC", serviceType.TAX, deliveryFormatOptions.VIRTUAL, 1_000.00);
+        Advisory advisory = new Advisory(2L, "Business Advisory LLC", serviceType.TAX_PLANNING, deliveryFormatOptions.VIRTUAL, 1_000.00);
         assertNotNull(advisory);
         assertEquals(advisory.getAdvisoryId(), 2);
         assertEquals(advisory.getName(), "Business Advisory LLC");
-        assertEquals(advisory.getServiceType(), "TAX");
+        assertEquals(advisory.getServiceType(), "TAX_PLANNING");
         assertEquals(advisory.getDeliveryFormat(), "VIRTUAL");
         assertEquals(advisory.getAnnualFee(), 1000.00);
     }
@@ -56,7 +56,7 @@ public class JavaModelTests {
     public void engagementCreationTest() {
         LocalDate exampleDate = LocalDate.parse("2026-03-25");
 
-        Advisory advisory = new Advisory(2, "Business Advisory LLC", serviceType.TAX, deliveryFormatOptions.VIRTUAL, 1_000.00);
+        Advisory advisory = new Advisory(2L, "Business Advisory LLC", serviceType.TAX_PLANNING, deliveryFormatOptions.VIRTUAL, 1_000.00);
 
         Client client = new Client(1L, "Jacob", "Sweeney", "jsweeney@skillstorm.com", 
                                     "+1-123-456-7890", tier.STANDARD, 250_000.00);

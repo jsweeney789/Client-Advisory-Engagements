@@ -50,7 +50,7 @@ public class EngagementServiceTests {
     public void serviceCreateEngagementTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
                                                  "1234567890", tier.STANDARD, 750_000.00);
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         LocalDate exampleDate = LocalDate.of(2026, 3, 27);
         Engagement exampleEngagement = new Engagement(1L, exampleClient, exampleAdvisory, exampleDate, "example notes!.", engagementStatus.PAUSED);
 
@@ -71,7 +71,7 @@ public class EngagementServiceTests {
     public void serviceReadEngagementTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
                                                  "1234567890", tier.STANDARD, 750_000.00);
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         LocalDate exampleDate = LocalDate.of(2026, 3, 27);
         Engagement exampleEngagement = new Engagement(1L, exampleClient, exampleAdvisory, exampleDate, "example notes!.", engagementStatus.PAUSED);
 
@@ -92,7 +92,7 @@ public class EngagementServiceTests {
     public void serviceUpdateEngagementTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
                                                     "1234567890", tier.STANDARD, 750_000.00);
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         LocalDate exampleDate = LocalDate.of(2026, 3, 27);
         Engagement exampleEngagement = new Engagement(1L, exampleClient, exampleAdvisory, exampleDate, "example notes!.", engagementStatus.PAUSED);
         String firstNotes = exampleEngagement.getNotes();
@@ -100,7 +100,7 @@ public class EngagementServiceTests {
         // save original example in repo
         when(repo.save(exampleEngagement)).thenReturn(exampleEngagement);
 
-        Engagement preUpdateEngagement = engagementService.saveEngagement(exampleEngagement);
+        String preUpdateEngagementNotes = engagementService.saveEngagement(exampleEngagement).getNotes();
         exampleEngagement.setNotes("these notes are different!");
         
         // simluate saving over with the new data
@@ -117,7 +117,7 @@ public class EngagementServiceTests {
         assertEquals(postUpdateEngagement, postUpdateReadEngagement);
         assertEquals(postUpdateEngagement, exampleEngagement);
         assertEquals(exampleEngagement, postUpdateReadEngagement);
-        assertNotEquals(postUpdateEngagement, preUpdateEngagement);
+        assertNotEquals(postUpdateEngagement.getNotes(), preUpdateEngagementNotes);
     }
 
     @Test
@@ -125,7 +125,7 @@ public class EngagementServiceTests {
     public void serviceDeleteEngagementTest() {
         Client exampleClient = new Client(1L, "John ", "Smith", "jsmith@gmail.com",
                                                  "1234567890", tier.STANDARD, 750_000.00);
-        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX, deliveryFormatOptions.HYBRID, 1_000.00);
+        Advisory exampleAdvisory = new Advisory(1L, "Business Advisory Services LLC ", serviceType.TAX_PLANNING, deliveryFormatOptions.HYBRID, 1_000.00);
         LocalDate exampleDate = LocalDate.of(2026, 3, 27);
         Engagement exampleEngagement = new Engagement(1L, exampleClient, exampleAdvisory, exampleDate, "example notes!.", engagementStatus.PAUSED);
 
