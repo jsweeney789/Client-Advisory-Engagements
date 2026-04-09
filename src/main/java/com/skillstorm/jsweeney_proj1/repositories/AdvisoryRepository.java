@@ -20,8 +20,8 @@ public interface AdvisoryRepository extends JpaRepository<Advisory, Long> {
             a.annual_fee,
             COUNT(e.client_id) 
         from advisory_service as a
-        JOIN engagement as e ON a.advisory_service_id=e.advisory_service_id
+        LEFT JOIN engagement as e ON a.advisory_service_id=e.advisory_service_id 
         GROUP BY a.advisory_service_id;
-            """, nativeQuery = true
+            """, nativeQuery = true // used left join because we need to keep advisories with 0 engagements
         ) List<AdvisoryDto> getAllAdvisoriesWithClientCounts(); 
 }
