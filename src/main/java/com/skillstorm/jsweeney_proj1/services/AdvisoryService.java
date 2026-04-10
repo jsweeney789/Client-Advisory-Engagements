@@ -7,7 +7,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import com.skillstorm.jsweeney_proj1.Dtos.AdvisoryDto;
-import com.skillstorm.jsweeney_proj1.Dtos.ClientDto;
 import com.skillstorm.jsweeney_proj1.Dtos.EngagementDto;
 import com.skillstorm.jsweeney_proj1.models.Advisory;
 import com.skillstorm.jsweeney_proj1.repositories.AdvisoryRepository;

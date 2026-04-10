@@ -24,7 +24,7 @@ public class Client {
     public enum tier{STANDARD, PREMIUM, PRIVATE_BANKING}
     public enum networthRange{UNDER_500K, BETWEEN_500K_2M, BETWEEN_2M_10M, OVER_10M}
 
-    @Id // TODO: figure out how our DB will handle our ids
+    @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="client_id")
     private Long clientId;

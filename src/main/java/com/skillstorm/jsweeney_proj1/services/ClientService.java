@@ -4,11 +4,9 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 
 import com.skillstorm.jsweeney_proj1.Dtos.ClientDto;
 import com.skillstorm.jsweeney_proj1.Dtos.EngagementDto;

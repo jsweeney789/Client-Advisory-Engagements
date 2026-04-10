@@ -49,7 +49,7 @@ public class Engagement {
     @Column(name="notes")
     private String notes;
 
-    // TODO: set up a good way to do this constructor as start_date, notes, and status are all optional
+    
     public Engagement(Long engagementId, Client client, Advisory advisory, LocalDate start_date) {
         this.engagementId = engagementId;
         this.client = client;

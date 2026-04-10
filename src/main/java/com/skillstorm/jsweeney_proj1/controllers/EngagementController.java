@@ -40,7 +40,7 @@ public class EngagementController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Engagement> getEngagementById(@PathVariable Long id) {
-        // TODO: USE GLOBAL EXCEPTION HANDLER INSTEAD OF TRY CATCHING HERE
+        
         Engagement engagement;
         try {
             engagement = service.getEngagementById(id);

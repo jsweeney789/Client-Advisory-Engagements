@@ -47,7 +47,6 @@ public class AdvisoryController {
         
         try {
             engagements = service.getRelatedEngagementsById(id);
-        }
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
@@ -59,7 +58,7 @@ public class AdvisoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<AdvisoryDto> getAdvisoryById(@PathVariable Long id) {
-        // TODO: USE GLOBAL EXCEPTION HANDLER INSTEAD OF TRY CATCHING HERE
+        
         AdvisoryDto advisory;
         try {
             advisory = service.getFullAdvisoryInfoById(id);
