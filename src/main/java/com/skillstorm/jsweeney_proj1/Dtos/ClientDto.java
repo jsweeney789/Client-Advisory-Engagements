@@ -13,9 +13,11 @@ public class ClientDto {
     private tier tier;
     private networthRange estNetWorth;
     private double annualFeeObligation;
+    private double serviceCount;
+
 
     // must take in strings from DB and convert to enums
-    public ClientDto(Long clientId, String firstName, String lastName, String email, String phone, String tier, String estNetWorth, double annualFeeObligation) {
+    public ClientDto(Long clientId, String firstName, String lastName, String email, String phone, String tier, String estNetWorth, double annualFeeObligation, double serviceCount) {
         this.clientId = clientId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,12 +25,13 @@ public class ClientDto {
         this.phone = phone;
         this.tier = Client.tier.valueOf(tier);
         this.estNetWorth = Client.networthRange.valueOf(estNetWorth);
-        this.annualFeeObligation = annualFeeObligation;;
+        this.annualFeeObligation = annualFeeObligation;
+        this.serviceCount = serviceCount;
     }
 
     public static ClientDto convertToDto(Client client) {
         return new ClientDto(client.getClientId(), client.getFirstName(), client.getLastName(), client.getEmail(), client.getPhone(), 
-                                client.getTier().toString(), client.getEstNetWorth().toString(), 0L);
+                                client.getTier().toString(), client.getEstNetWorth().toString(), 0L, 0L);
     }
 
     public static Client convertToDto(ClientDto client) {
@@ -130,6 +133,14 @@ public class ClientDto {
 
     public void setAnnualFeeObligation(double annualFeeObligation) {
         this.annualFeeObligation = annualFeeObligation;
+    }
+
+    public double getServiceCount() {
+        return serviceCount;
+    }
+
+    public void setServiceCount(double serviceCount) {
+        this.serviceCount = serviceCount;
     }
 
     

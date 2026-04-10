@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.jsweeney_proj1.Dtos.ClientDto;
+import com.skillstorm.jsweeney_proj1.Dtos.EngagementDto;
 import com.skillstorm.jsweeney_proj1.models.Client;
 import com.skillstorm.jsweeney_proj1.services.ClientService;
 
@@ -34,7 +35,7 @@ public class ClientController {
         this.service = service;
     }
 
-    // haven't made tester for this yet because this isn't the most basic CRUD operation, will look into as beginning of creating real functionalities.
+    
     @GetMapping()
     public ResponseEntity<List<ClientDto>> getAllClients() {
         List<ClientDto> clients = service.getAllClientsWithObligations();
@@ -42,11 +43,11 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Client> getClientById(@PathVariable Long id) {
-        // TODO: USE GLOBAL EXCEPTION HANDLER INSTEAD OF TRY CATCHING HERE
-        Client client;
+    public ResponseEntity<ClientDto> getClientById(@PathVariable Long id) {
+        
+        ClientDto client;
         try {
-            client = service.getClientById(id);
+            client = service.getFullClientInfoById(id);
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
@@ -55,6 +56,21 @@ public class ClientController {
         }
 
         return new ResponseEntity<>(client, HttpStatus.OK);
+    }    
+
+    @GetMapping("/{id}/engagements")
+    public ResponseEntity<List<EngagementDto>> getClientEngagements(@PathVariable Long id) {
+        List<EngagementDto> engagements;
+        
+        try {
+            engagements = service.getRelatedEngagementsById(id);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+        if (engagements == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity<>(engagements, HttpStatus.OK);
     }    
 
     @PostMapping()

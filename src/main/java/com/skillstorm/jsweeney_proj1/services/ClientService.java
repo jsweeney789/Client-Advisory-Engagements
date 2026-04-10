@@ -4,9 +4,14 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.skillstorm.jsweeney_proj1.Dtos.ClientDto;
+import com.skillstorm.jsweeney_proj1.Dtos.EngagementDto;
 import com.skillstorm.jsweeney_proj1.models.Client;
 import com.skillstorm.jsweeney_proj1.repositories.ClientRepository;
 
@@ -18,12 +23,6 @@ public class ClientService {
     public ClientService(ClientRepository repository) {
         this.repository = repository;
     }
-
-    // for most basic CRUD we want 4 methods
-    // findAll() clients
-    // findById() client
-    // saveClient() works for both create and update of crud
-    // deleteClient()
 
     public List<Client> getAllClients() {
         return repository.findAll();
@@ -40,6 +39,16 @@ public class ClientService {
         } else {
             throw new NoSuchElementException("No client with id: " + id);
         }
+    }
+  
+    public ClientDto getFullClientInfoById(Long id) throws NoSuchElementException {
+        ClientDto client = repository.findClientInfoById(id);
+        return client;
+    }
+
+    public List<EngagementDto> getRelatedEngagementsById(Long id) throws NoSuchElementException {
+        List<EngagementDto> engagements = repository.findRelatedEngagements(id);
+        return engagements;
     }
 
     public Client saveClient(Client client) {

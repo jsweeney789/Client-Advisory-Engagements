@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.jsweeney_proj1.Dtos.AdvisoryDto;
+import com.skillstorm.jsweeney_proj1.Dtos.EngagementDto;
 import com.skillstorm.jsweeney_proj1.models.Advisory;
 import com.skillstorm.jsweeney_proj1.services.AdvisoryService;
 
@@ -40,12 +41,28 @@ public class AdvisoryController {
         return new ResponseEntity<List<AdvisoryDto>>(advisories, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Advisory> getAdvisoryById(@PathVariable Long id) {
-        // TODO: USE GLOBAL EXCEPTION HANDLER INSTEAD OF TRY CATCHING HERE
-        Advisory advisory;
+    @GetMapping("/{id}/engagements")
+    public ResponseEntity<List<EngagementDto>> getAdvisoryEngagements(@PathVariable Long id) {
+        List<EngagementDto> engagements;
+        
         try {
-            advisory = service.getAdvisoryById(id);
+            engagements = service.getRelatedEngagementsById(id);
+        }
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+        if (engagements == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return new ResponseEntity<>(engagements, HttpStatus.OK);
+    }    
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AdvisoryDto> getAdvisoryById(@PathVariable Long id) {
+        // TODO: USE GLOBAL EXCEPTION HANDLER INSTEAD OF TRY CATCHING HERE
+        AdvisoryDto advisory;
+        try {
+            advisory = service.getFullAdvisoryInfoById(id);
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }

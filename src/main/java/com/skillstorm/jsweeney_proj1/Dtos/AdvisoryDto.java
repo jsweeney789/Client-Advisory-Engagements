@@ -5,7 +5,7 @@ import com.skillstorm.jsweeney_proj1.models.Advisory.deliveryFormatOptions;
 import com.skillstorm.jsweeney_proj1.models.Advisory.serviceType;
 
 public class AdvisoryDto {
-    private Long advisoryServiceId;
+    private Long advisoryId;
     private String name;
     private serviceType serviceType;
     private deliveryFormatOptions deliveryFormat;
@@ -16,7 +16,7 @@ public class AdvisoryDto {
     public AdvisoryDto(Long advisoryServiceId, String serviceName,
             String serviceType, String deliveryFormat,
             boolean active, double annualFee, long numClients) {
-        this.advisoryServiceId = advisoryServiceId;
+        this.advisoryId = advisoryServiceId;
         this.name = serviceName;
         this.serviceType = Advisory.serviceType.valueOf(serviceType);
         this.deliveryFormat = deliveryFormatOptions.valueOf(deliveryFormat);
@@ -25,12 +25,12 @@ public class AdvisoryDto {
         this.numClients = numClients;
     }
 
-    public Long getAdvisoryServiceId() {
-        return advisoryServiceId;
+    public Long getAdvisoryId() {
+        return advisoryId;
     }
 
-    public void setAdvisoryServiceId(Long advisoryServiceId) {
-        this.advisoryServiceId = advisoryServiceId;
+    public void setAdvisoryId(Long advisoryServiceId) {
+        this.advisoryId = advisoryServiceId;
     }
 
     public String getName() {
